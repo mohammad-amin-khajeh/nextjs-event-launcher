@@ -1,112 +1,131 @@
+"use client";
+import { LogoRotation } from "@/components/logo-rotation";
+import { YoutubePlug } from "@/components/youtube-plug";
+import { assets } from "@/utils/asset-utils";
+import { type Framework, frameworks } from "@/utils/framework-utils";
+import { classname } from "@/utils/tailwind-utils";
+import { type Tool, tools } from "@/utils/tool-utils";
+import { Poppins } from "next/font/google";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+const poppins = Poppins({ weight: "700", subsets: ["latin"] });
 
 export default function Home() {
+  const [framework, setFramework] = useState<Framework>(frameworks[0]);
+  const [tool, setTool] = useState<Tool>(tools[0]);
+  const [showbg, setShowbg] = useState(false);
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const changeFramework = () => {
+      setFramework(frameworks[currentIndex]);
+      currentIndex = (currentIndex + 1) % frameworks.length;
+    };
+
+    const intervalId = setInterval(changeFramework, 2000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const changetool = () => {
+      setTool(tools[currentIndex]);
+      currentIndex = (currentIndex + 1) % tools.length;
+    };
+
+    const intervalId = setInterval(changetool, 2000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    setShowbg(true);
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main>
+      <div
+        className={classname(
+          "fixed inset-0 transition-colors duration-1000 opacity-65",
+          {
+            "bg-react": framework === "react",
+            "bg-tailwind": framework === "tailwind",
+          },
+        )}
+      />
+      <Image
+        role="presentation"
+        src={assets.gradient}
+        width={1920}
+        height={1080}
+        alt="gradient background"
+        className="fixed inset-0 h-screen w-screen object-cover"
+      />
+      <div
+        className="fixed inset-0 opacity-20"
+        style={{
+          backgroundImage: `url(${assets.square})`,
+          backgroundSize: "30px",
+        }}
+      />
+
+      <div
+        className={classname(
+          "bg-black fixed inset-0 transition-opacity duration-1000",
+          !showbg ? "opacity-100" : "opacity-0",
+        )}
+      />
+
+      <div className="max-w-7xl mt-20 mx-auto">
+        <div className="flex flex-col items-center relative z-10">
+          <h1
+            className={`text-7xl max-w-3xl text-center leading-snug mb-12 ${poppins.className}`}
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            nextJs event launcher{" "}
+            <span
+              className={classname("transition-colors duration-500", {
+                "text-react": framework === "react",
+                "text-tailwind": framework === "tailwind",
+              })}
+            >
+              built
+            </span>{" "}
+            in <LogoRotation currentLogo={framework} logos={frameworks} />{" "}
+            <span
+              className={classname("transition-colors duration-500", {
+                "text-neovim": tool === "neovim",
+                "text-arch": tool === "arch",
+                "text-suckless": tool === "suckless",
+              })}
+            >
+              using
+            </span>
+            <LogoRotation currentLogo={tool} logos={tools} />
+          </h1>
+
+          <p className="mb-8 font-semibold text-lg">
+            Join my <YoutubePlug /> now and learn to become an elite CLI
+            developer(persian only)
+          </p>
+          <button
+            type="button"
+            className={classname(`youtube ${poppins.className}`, {
+              "bg-neovim": tool === "neovim",
+              "bg-arch": tool === "arch",
+              "bg-suckless": tool === "suckless",
+              "hover:text-neovim": tool === "neovim",
+              "hover:text-arch": tool === "arch",
+              "hover:text-suckless": tool === "suckless",
+            })}
+          >
+            <a
+              target="_blank"
+              href="http://www.youtube.com/@MohammadaminKhajehkoolaki"
+            >
+              Join
+            </a>
+          </button>
         </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
       </div>
     </main>
   );
