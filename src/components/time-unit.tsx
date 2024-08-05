@@ -1,4 +1,4 @@
-import { type Framework } from "@/utils/framework-utils";
+import type { Framework } from "@/utils/framework-utils";
 import { classname } from "@/utils/tailwind-utils";
 import { NumberRotation } from "./number-rotation";
 
