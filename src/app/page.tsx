@@ -121,6 +121,7 @@ export default function Home() {
             <a
               target="_blank"
               href="http://www.youtube.com/@MohammadaminKhajehkoolaki"
+              rel="noreferrer"
             >
               Join
             </a>
