@@ -7,6 +7,6 @@
     @apply m-0 p-0 text-white bg-gray-800
   }
   button.youtube {
-    @apply rounded-xl py-3 px-6 text-xl transition duration-500 hover:scale-110 ease-out hover:bg-white
+    @apply rounded-xl py-3 px-6 text-xl transition duration-500 hover:scale-110 ease-out hover:bg-white my-12
   }
 }

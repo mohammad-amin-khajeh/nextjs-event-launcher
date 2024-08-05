@@ -1,4 +1,5 @@
 "use client";
+import { CountdownTimer } from "@/components/countdown-timer";
 import { LogoRotation } from "@/components/logo-rotation";
 import { YoutubePlug } from "@/components/youtube-plug";
 import { assets } from "@/utils/asset-utils";
@@ -103,7 +104,9 @@ export default function Home() {
             <LogoRotation currentLogo={tool} logos={tools} />
           </h1>
 
-          <p className="mb-8 font-semibold text-lg">
+          <CountdownTimer currentFramework={framework} />
+
+          <p className="mt-36 font-semibold text-lg">
             Join my <YoutubePlug /> now and learn to become an elite CLI
             developer(persian only)
           </p>
