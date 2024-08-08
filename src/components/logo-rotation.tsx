@@ -1,6 +1,6 @@
 import { assets } from "@/utils/asset-utils";
 import type { Framework } from "@/utils/framework-utils";
-import { classname } from "@/utils/tailwind-utils";
+import { cn } from "@/utils/tailwind-utils";
 import type { Tool } from "@/utils/tool-utils";
 import Image from "next/image";
 
@@ -17,7 +17,7 @@ export const LogoRotation = ({
           width="80"
           key={name}
           alt="tool logo"
-          className={classname(
+          className={cn(
             "w-full h-full object-center object-contain absolute top-0 left-0 transition-all duration-500",
             currentLogo === name
               ? "opacity-100 transform-none"

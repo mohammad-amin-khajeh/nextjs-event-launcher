@@ -1,5 +1,5 @@
 import type { Framework } from "@/utils/framework-utils";
-import { classname } from "@/utils/tailwind-utils";
+import { cn } from "@/utils/tailwind-utils";
 import { NumberRotation } from "./number-rotation";
 
 export const TimeUnit = ({
@@ -13,13 +13,10 @@ export const TimeUnit = ({
         <NumberRotation number={value} />
       </div>
       <div
-        className={classname(
-          "text-2xl transition-colors duration-1000 font-medium",
-          {
-            "text-react": currentFramework === "react",
-            "text-tailwind": currentFramework === "tailwind",
-          },
-        )}
+        className={cn("text-2xl transition-colors duration-1000 font-medium", {
+          "text-react": currentFramework === "react",
+          "text-tailwind": currentFramework === "tailwind",
+        })}
       >
         {label}
       </div>

@@ -4,7 +4,7 @@ import { LogoRotation } from "@/components/logo-rotation";
 import { YoutubePlug } from "@/components/youtube-plug";
 import { assets } from "@/utils/asset-utils";
 import { type Framework, frameworks } from "@/utils/framework-utils";
-import { classname } from "@/utils/tailwind-utils";
+import { cn } from "@/utils/tailwind-utils";
 import { type Tool, tools } from "@/utils/tool-utils";
 import { Poppins } from "next/font/google";
 import Image from "next/image";
@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <main>
       <div
-        className={classname(
+        className={cn(
           "fixed inset-0 transition-colors duration-1000 opacity-65",
           {
             "bg-react": framework === "react",
@@ -71,7 +71,7 @@ export default function Home() {
       />
 
       <div
-        className={classname(
+        className={cn(
           "bg-black fixed inset-0 transition-opacity duration-1000",
           !showbg ? "opacity-100" : "opacity-0",
         )}
@@ -84,7 +84,7 @@ export default function Home() {
           >
             nextJs event launcher{" "}
             <span
-              className={classname("transition-colors duration-500", {
+              className={cn("transition-colors duration-500", {
                 "text-react": framework === "react",
                 "text-tailwind": framework === "tailwind",
               })}
@@ -93,7 +93,7 @@ export default function Home() {
             </span>{" "}
             in <LogoRotation currentLogo={framework} logos={frameworks} />{" "}
             <span
-              className={classname("transition-colors duration-500", {
+              className={cn("transition-colors duration-500", {
                 "text-neovim": tool === "neovim",
                 "text-arch": tool === "arch",
                 "text-suckless": tool === "suckless",
@@ -112,7 +112,7 @@ export default function Home() {
           </p>
           <button
             type="button"
-            className={classname(`youtube ${poppins.className}`, {
+            className={cn(`youtube ${poppins.className}`, {
               "bg-neovim": tool === "neovim",
               "bg-arch": tool === "arch",
               "bg-suckless": tool === "suckless",

@@ -1,4 +1,4 @@
-import { classname } from "@/utils/tailwind-utils";
+import { cn } from "@/utils/tailwind-utils";
 
 export const NumberRotation = ({ number }: { number: number }) => {
   const numbers = Array.from({ length: 60 }, (_, i) => i);
@@ -15,7 +15,7 @@ export const NumberRotation = ({ number }: { number: number }) => {
       {numbers.map((num) => (
         <div
           key={num}
-          className={classname(
+          className={cn(
             "w-full h-full absolute transition-all duration-200",
             getClass(num),
           )}
